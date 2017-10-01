@@ -1,0 +1,13 @@
+module FunctionEvaluator where
+
+evaluateFunction :: Ord a => (a -> Either b ([a], [b] -> b)) -> a -> b
+evaluateFunction f n = evaluate f n
+  
+  
+evaluate f n =   
+  case f n of
+    Left res -> res
+    Right (newArgs, reduce) -> reduce $ map (evaluate . f) newArgs  
+
+
+
