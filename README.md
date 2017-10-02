@@ -1,3 +1,5 @@
 ## Solutions for some interesting Codewars katas
 
-This repository contains my solutions for some interesting codewars katas
+This repository contains my solutions for some interesting codewars katas.
+
+### SPOILER ALERT
