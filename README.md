@@ -2,4 +2,4 @@
 
 This repository contains my solutions for some interesting codewars katas.
 
-### SPOILER ALERT
+### SPOILERS: CONTAINS PROBLEM SOLUTIONS
