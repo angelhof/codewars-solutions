@@ -158,7 +158,25 @@ isRpar _ = False
 ------------------------------------
 
 pass2 :: AST -> AST
-pass2 = undefined
+pass2 = fst . cr
+
+cr (Imm imm) = (Imm imm, True)
+cr (Arg arg) = (Arg arg, False)
+cr (Add e1 e2) = newE e1 e2 Add
+cr (Sub e1 e2) = newE e1 e2 Sub
+cr (Mul e1 e2) = newE e1 e2 Mul
+cr (Div e1 e2) = newE e1 e2 Div
+
+newE e1 e2 constructor = if b1 && b2 then (cReduce new, True) else (new, False)
+  where
+    (e1', b1) = cr e1
+    (e2', b2) = cr e2
+    new = constructor e1' e2'
+
+cReduce (Add (Imm a) (Imm b)) = Imm $ a + b
+cReduce (Sub (Imm a) (Imm b)) = Imm $ a - b
+cReduce (Mul (Imm a) (Imm b)) = Imm $ a * b
+cReduce (Div (Imm a) (Imm b)) = Imm $ a `div` b
 
 ------------------------------------
 --
