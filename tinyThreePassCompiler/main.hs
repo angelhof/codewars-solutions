@@ -185,4 +185,11 @@ cReduce (Div (Imm a) (Imm b)) = Imm $ a `div` b
 ------------------------------------
 
 pass3 :: AST -> [String]
-pass3 = undefined
+pass3 = assemble
+
+assemble (Imm imm) = ["IM " ++ show imm]
+assemble (Arg arg) = ["AR " ++ show arg]
+assemble (Add e1 e2) = concat [assemble e1, ["PU"], assemble e2, ["SW", "PO", "AD"]]
+assemble (Sub e1 e2) = concat [assemble e1, ["PU"], assemble e2, ["SW", "PO", "SU"]]
+assemble (Mul e1 e2) = concat [assemble e1, ["PU"], assemble e2, ["SW", "PO", "MU"]]
+assemble (Div e1 e2) = concat [assemble e1, ["PU"], assemble e2, ["SW", "PO", "DI"]]
